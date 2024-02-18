@@ -41,7 +41,7 @@ public class AuthServiceImpl implements AuthService{
 // this one ????
     @Override
     public void signup(CreateSignupRequest createSignupRequest) {
-        RoleEntity roleEntity= roleRepository.findRoleEntityByTitle(Roles.USER.name())
+        RoleEntity roleEntity= roleRepository.findRoleEntityByTitle(Roles.user.name())
                 .orElseThrow();
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(createSignupRequest.getUsername());
