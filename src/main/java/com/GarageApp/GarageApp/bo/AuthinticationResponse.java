@@ -3,16 +3,16 @@ package com.GarageApp.GarageApp.bo;
 
 
 public class AuthinticationResponse {
-    private int id;
+    private Long id;
     private String username;
     private String role;
     private String token;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

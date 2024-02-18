@@ -12,7 +12,7 @@ public class RequestEntity {
     @Id
     @Column(name = "requestId", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int requestId;
+    private Long requestId;
 
     @Enumerated(EnumType.STRING)
     private Request requestStatus;

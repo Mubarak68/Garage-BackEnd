@@ -9,7 +9,7 @@ public class CategoryEntity {
     @Id
     @Column(name = "categoryId", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int categoryId;
+    private Long categoryId;
 
     @Column(name = "carName", nullable = false)
     private String carName;
