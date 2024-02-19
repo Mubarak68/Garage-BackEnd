@@ -31,6 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "Authorization", "credential", "X-XSRF-TOKEN", "X-Refresh-Token", "X-Client-Id", "x-client-id");
 
     private static final String SUPER_ADMIN_PATH = "/api/v1/super_admin/**";
+
+    private static final String CATEGORY_ADMIN_PATH = "/api/v1/categories/**";
     @Autowired
     private JWTUtil jwtUtil;
 
@@ -53,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(AUTH_PATH).permitAll()
                 .antMatchers(USER_PATH).hasAuthority("user")
                 .antMatchers(SUPER_ADMIN_PATH).hasAuthority("super_admin")
+                .antMatchers(CATEGORY_ADMIN_PATH).hasAuthority("categories")
                 .anyRequest().authenticated();
         http.addFilterBefore(new JWTAuthFilter(jwtUtil,userDetailsService), UsernamePasswordAuthenticationFilter.class);
 
