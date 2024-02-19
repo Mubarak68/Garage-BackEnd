@@ -6,6 +6,7 @@ import com.GarageApp.GarageApp.bo.CreateSignupRequest;
 import com.GarageApp.GarageApp.bo.user.GetUserRequest;
 import com.GarageApp.GarageApp.bo.user.UpdateUserRequest;
 import com.GarageApp.GarageApp.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,11 +15,13 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 //    private final AccountRepository accountRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
 
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class UserServiceImpl implements UserService {
 
         userEntity.setEmail(updateUserRequest.getEmail());
 
-        userEntity.setPassword(updateUserRequest.getPassword());
+        userEntity.setPassword(bCryptPasswordEncoder.encode(updateUserRequest.getPassword()));
         userRepository.save(userEntity);
     }
 

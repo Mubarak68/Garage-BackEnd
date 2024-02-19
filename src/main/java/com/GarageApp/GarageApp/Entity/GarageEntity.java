@@ -24,6 +24,8 @@ private Long garageId;
     private String location;
 
 
+
+
     @Column(name = "rating", nullable = false)
     private Double rating;
 
@@ -31,10 +33,14 @@ private Long garageId;
     @Column(name = "specialIn",nullable = false)
     private String specialIn;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private CategoryEntity categoryEntity;
 
     public Long getGarageId() {
         return garageId;
     }
+
 
     public void setGarageId(Long garageId) {
         this.garageId = garageId;
@@ -75,4 +81,15 @@ private Long garageId;
 
 
 
+
+
+
+
+    public CategoryEntity getCategoryEntity() {
+        return categoryEntity;
+    }
+
+    public void setCategoryEntity(CategoryEntity categoryEntity) {
+        this.categoryEntity = categoryEntity;
+    }
 }
