@@ -15,9 +15,9 @@ public interface UserService {
 
 
 
-    void updateUser(UpdateUserRequest updateUserRequest, int id);
+    void updateUser(UpdateUserRequest updateUserRequest, Long id);
 
 
     List<UserEntity> allUsers();
-    GetUserRequest getUser(int id);
+    GetUserRequest getUser(Long id);
 }

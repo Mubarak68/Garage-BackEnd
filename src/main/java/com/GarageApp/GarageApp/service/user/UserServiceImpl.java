@@ -32,10 +32,8 @@ public class UserServiceImpl implements UserService {
 
     }
 
-
-
     @Override
-    public void updateUser(UpdateUserRequest updateUserRequest, int id) {
+    public void updateUser(UpdateUserRequest updateUserRequest, Long id) {
         UserEntity userEntity = userRepository.getById(id);
         userEntity.setUsername(updateUserRequest.getUsername());
 
@@ -43,12 +41,11 @@ public class UserServiceImpl implements UserService {
 
         userEntity.setPassword(updateUserRequest.getPassword());
         userRepository.save(userEntity);
-
     }
 
 
     @Override
-    public GetUserRequest getUser(int id) {
+    public GetUserRequest getUser(Long id) {
         UserEntity userEntity = userRepository.getById(id);
         GetUserRequest getUserRequest = new GetUserRequest();
         getUserRequest.setUsername(userEntity.getUsername());
@@ -64,4 +61,5 @@ public class UserServiceImpl implements UserService {
     public List<UserEntity> allUsers() {
         return null;
     }
+
 }

@@ -2,7 +2,7 @@ package com.GarageApp.GarageApp.util.enums;
 
 
 public enum Roles {
-    user,admin
+    user,admin,super_admin
 
 }
 

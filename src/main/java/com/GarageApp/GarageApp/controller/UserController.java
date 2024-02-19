@@ -1,9 +1,6 @@
 package com.GarageApp.GarageApp.controller;
 
-
-
 import com.GarageApp.GarageApp.Entity.UserEntity;
-import com.GarageApp.GarageApp.bo.CreateSignupRequest;
 import com.GarageApp.GarageApp.bo.user.GetUserRequest;
 import com.GarageApp.GarageApp.bo.user.UpdateUserRequest;
 import com.GarageApp.GarageApp.service.user.UserService;
@@ -22,34 +19,17 @@ public class UserController {
 
     }
 
-    @PostMapping("/create-user")
-    public ResponseEntity<String> createUser(@RequestBody CreateSignupRequest createSignupRequest){
-        try {
-            userService.saveUser((createSignupRequest));
-        }catch (IllegalArgumentException e ){
-
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-        userService.saveUser(createSignupRequest);
-        return ResponseEntity.ok("User has been created !!!");
-
-
-
-    }
-
-
-
     @GetMapping("/user-list")
     public List<UserEntity> getAllUsers(){
         return userService.allUsers();
     }
     @PutMapping("/update-user")
-    public ResponseEntity<?> updateUser(@RequestBody UpdateUserRequest updateUserRequest, @RequestParam int id){
+    public ResponseEntity<?> updateUser(@RequestBody UpdateUserRequest updateUserRequest, @RequestParam Long id){
         userService.updateUser(updateUserRequest, id);
         return ResponseEntity.ok().build();
     }
     @GetMapping("/get-user")
-    public ResponseEntity<GetUserRequest> getUser(@RequestParam int id){
+    public ResponseEntity<GetUserRequest> getUser(@RequestParam Long id){
         GetUserRequest getUserRequest = userService.getUser(id);
         return ResponseEntity.ok().body(getUserRequest);
     }
