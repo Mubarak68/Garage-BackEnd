@@ -25,18 +25,11 @@ public class UserEntity {
 
 
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
 
     @OneToOne
     @JoinColumn(name = "role_id")
     private RoleEntity roles;
+
     public Long getId() {
         return id;
     }
@@ -45,15 +38,13 @@ public class UserEntity {
         this.id = id;
     }
 
-    public String getName() {
+    public String getUsername() {
         return username;
     }
 
-    public void setName(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
-
-
 
     public String getEmail() {
         return email;
@@ -63,10 +54,6 @@ public class UserEntity {
         this.email = email;
     }
 
-
-
-
-
     public String getPassword() {
         return password;
     }
@@ -74,6 +61,7 @@ public class UserEntity {
     public void setPassword(String password) {
         this.password = password;
     }
+
 
     public RoleEntity getRoles() {
         return roles;
