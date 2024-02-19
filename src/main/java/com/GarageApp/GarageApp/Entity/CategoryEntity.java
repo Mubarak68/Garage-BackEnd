@@ -11,12 +11,8 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
 
-    @Column(name = "carName", nullable = false)
-    private String carName;
-
-
-    @Column(name = "carYear", nullable = false)
-    private String carYear;
+    @Column(name = "categoryName", nullable = false)
+    private String categoryName;
 
     public Long getCategoryId() {
         return categoryId;
@@ -26,19 +22,12 @@ public class CategoryEntity {
         this.categoryId = categoryId;
     }
 
-    public String getCarName() {
-        return carName;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCarName(String carName) {
-        this.carName = carName;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public String getCarYear() {
-        return carYear;
-    }
-
-    public void setCarYear(String carYear) {
-        this.carYear = carYear;
-    }
 }

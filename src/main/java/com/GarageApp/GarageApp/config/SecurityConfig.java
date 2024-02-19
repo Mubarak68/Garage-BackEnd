@@ -32,10 +32,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String SUPER_ADMIN_PATH = "/api/v1/super_admin/**";
 
-    private static final String CATEGORY_ADMIN_PATH = "/api/v1/categories/**";
+    private static final String CATEGORY_ADMIN_PATH = "/api/v1/super_admin/**";
     @Autowired
     private JWTUtil jwtUtil;
-
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
@@ -55,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(AUTH_PATH).permitAll()
                 .antMatchers(USER_PATH).hasAuthority("user")
                 .antMatchers(SUPER_ADMIN_PATH).hasAuthority("super_admin")
-                .antMatchers(CATEGORY_ADMIN_PATH).hasAuthority("categories")
+                .antMatchers(CATEGORY_ADMIN_PATH).hasAuthority("super_admin")
                 .anyRequest().authenticated();
         http.addFilterBefore(new JWTAuthFilter(jwtUtil,userDetailsService), UsernamePasswordAuthenticationFilter.class);
 

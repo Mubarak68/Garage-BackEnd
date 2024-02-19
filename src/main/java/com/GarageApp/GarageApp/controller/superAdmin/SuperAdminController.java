@@ -1,6 +1,7 @@
 package com.GarageApp.GarageApp.controller.superAdmin;
 
 import com.GarageApp.GarageApp.Entity.GarageEntity;
+import com.GarageApp.GarageApp.bo.category.CreateCategoryRequest;
 import com.GarageApp.GarageApp.bo.garage.CreateGarageRequest;
 import com.GarageApp.GarageApp.service.superadmin.SuperAdminService;
 import org.springframework.http.ResponseEntity;
@@ -33,5 +34,11 @@ public class SuperAdminController {
     public ResponseEntity<List<GarageEntity>> getAllGarages() {
         List<GarageEntity> allGarages = superAdminService.getAllGarages();
         return ResponseEntity.ok(allGarages);
+    }
+
+    @PostMapping("/add-category")
+    public ResponseEntity<String> addCategory(@RequestBody CreateCategoryRequest createCategoryRequest){
+        superAdminService.addCategory(createCategoryRequest);
+        return ResponseEntity.ok("Category has been added!!");
     }
 }
