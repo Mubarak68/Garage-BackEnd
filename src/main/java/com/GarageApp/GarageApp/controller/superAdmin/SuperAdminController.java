@@ -1,13 +1,11 @@
 package com.GarageApp.GarageApp.controller.superAdmin;
 
 import com.GarageApp.GarageApp.Entity.GarageEntity;
-import com.GarageApp.GarageApp.service.ssadmin.SuperAdminService;
+import com.GarageApp.GarageApp.bo.garage.CreateGarageRequest;
+import com.GarageApp.GarageApp.service.superadmin.SuperAdminService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.swing.*;
 import java.util.List;
 
 @RestController
@@ -18,6 +16,18 @@ public class SuperAdminController {
     public SuperAdminController(SuperAdminService superAdminService) {
         this.superAdminService = superAdminService;
     }
+
+
+
+    @PostMapping("/add-garage")
+    public ResponseEntity<String> addGarage(@RequestBody CreateGarageRequest createGarageRequest) {
+        superAdminService.addGarage(createGarageRequest);
+        return ResponseEntity.ok("Added a Garage");
+    }
+
+
+
+
 
     @GetMapping("/garages_list")
     public ResponseEntity<List<GarageEntity>> getAllGarages() {
