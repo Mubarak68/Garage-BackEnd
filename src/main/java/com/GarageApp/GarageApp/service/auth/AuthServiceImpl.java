@@ -12,6 +12,7 @@ import com.GarageApp.GarageApp.excption.UserNotFoundException;
 import com.GarageApp.GarageApp.repository.RoleRepository;
 import com.GarageApp.GarageApp.repository.UserRepository;
 import com.GarageApp.GarageApp.util.enums.Roles;
+import com.GarageApp.GarageApp.util.enums.VehicleType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -50,7 +51,8 @@ public class AuthServiceImpl implements AuthService{
 
         userEntity.setRoles(roleEntity);
         userEntity.setVehicleYear(createSignupRequest.getVehicleYear());
-        userEntity.setVehicleType();
+        userEntity.setVehicleType(VehicleType.valueOf(createSignupRequest.getVehicleType()));
+        userEntity.setVehicleModel(createSignupRequest.getVehicleModel());
         userEntity.setPassword(bCryptPasswordEncoder.encode(createSignupRequest.getPassword()));
         userRepository.save(userEntity);
     }
@@ -85,6 +87,7 @@ public class AuthServiceImpl implements AuthService{
     private void authentication(String username, String password) {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+
 
         } catch (AuthenticationServiceException e) {
             throw new UserNotFoundException("Incorrect username");

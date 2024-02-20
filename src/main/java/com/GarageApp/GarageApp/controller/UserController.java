@@ -1,5 +1,6 @@
 package com.GarageApp.GarageApp.controller;
 
+import com.GarageApp.GarageApp.Entity.GarageEntity;
 import com.GarageApp.GarageApp.Entity.UserEntity;
 import com.GarageApp.GarageApp.bo.category.CreateCategoryRequest;
 import com.GarageApp.GarageApp.bo.user.GetUserRequest;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/v1/user")
 public class UserController {
     private final UserService userService;
 
@@ -47,9 +48,15 @@ public class UserController {
     }
 
     @PostMapping("/request")
-    public ResponseEntity<String> submitRequest(@RequestBody UserRequestSubmission userRequestSubmission) {
-        userService.(userRequestSubmission);
+    public ResponseEntity<String> submitRequest(@RequestParam Long garageID,
+                                                @RequestBody UserRequestSubmission userRequestSubmission) {
+        userService.submitRequest(garageID,userRequestSubmission);
         return ResponseEntity.ok("User added a Review !!! ");
+    }
+    @GetMapping("/garages")
+    public ResponseEntity<List<GarageEntity>> getAllGarages() {
+        List<GarageEntity> allGarages = userService.getAllGarages();
+        return ResponseEntity.ok(allGarages);
     }
 
 }

@@ -26,14 +26,24 @@ public class UserEntity {
     @Column(name = "password",nullable = false)
     private String password;
 
-
-
-
     @Column(name = "vehicleYear",nullable = false)
     private String vehicleYear;
 
+
     @Enumerated(EnumType.STRING)
     private VehicleType vehicleType;
+
+    @Column(name = "vehicleModel",nullable = false)
+    private String vehicleModel;
+
+
+    public String getVehicleModel() {
+        return vehicleModel;
+    }
+
+    public void setVehicleModel(String vehicleModel) {
+        this.vehicleModel = vehicleModel;
+    }
 
     @OneToOne
     @JoinColumn(name = "role_id")

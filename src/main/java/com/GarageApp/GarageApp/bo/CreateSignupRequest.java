@@ -5,29 +5,33 @@ public class CreateSignupRequest {
     private String username;
     private String email;
     private String password;
+    private String vehicleType;
+    private String vehicleYear;
+    private String vehicleModel;
 
-    private String VehicleName;
-    private String VehicleYear;
-
-    public String getVehicleName() {
-        return VehicleName;
+    public String getVehicleType() {
+        return vehicleType;
     }
 
-    public void setVehicleName(String vehicleName) {
-        VehicleName = vehicleName;
+    public void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
     }
 
     public String getVehicleYear() {
-        return VehicleYear;
+        return vehicleYear;
     }
 
     public void setVehicleYear(String vehicleYear) {
-        VehicleYear = vehicleYear;
+        this.vehicleYear = vehicleYear;
     }
 
+    public String getVehicleModel() {
+        return vehicleModel;
+    }
 
-
-
+    public void setVehicleModel(String vehicleModel) {
+        this.vehicleModel = vehicleModel;
+    }
 
     public String getEmail() {
         return email;

@@ -1,6 +1,7 @@
 package com.GarageApp.GarageApp.Entity;
 
 import com.GarageApp.GarageApp.util.enums.Request;
+import com.GarageApp.GarageApp.util.enums.VehicleType;
 
 import javax.persistence.*;
 
@@ -24,6 +25,40 @@ public class RequestEntity {
     @OneToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
+
+    @Column(name = "vehicleYear",nullable = false)
+    private String vehicleYear;
+
+
+    @Enumerated(EnumType.STRING)
+    private VehicleType vehicleType;
+
+    @Column(name = "vehicleModel",nullable = false)
+    private String vehicleModel;
+
+    public String getVehicleYear() {
+        return vehicleYear;
+    }
+
+    public void setVehicleYear(String vehicleYear) {
+        this.vehicleYear = vehicleYear;
+    }
+
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
+    public String getVehicleModel() {
+        return vehicleModel;
+    }
+
+    public void setVehicleModel(String vehicleModel) {
+        this.vehicleModel = vehicleModel;
+    }
 
     public Long getRequestId() {
         return requestId;
