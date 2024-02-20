@@ -6,6 +6,7 @@ import com.GarageApp.GarageApp.bo.CreateSignupRequest;
 import com.GarageApp.GarageApp.bo.category.CreateCategoryRequest;
 import com.GarageApp.GarageApp.bo.user.GetUserRequest;
 import com.GarageApp.GarageApp.bo.user.UpdateUserRequest;
+import com.GarageApp.GarageApp.bo.user.UserRequestSubmission;
 import com.GarageApp.GarageApp.bo.user.UserReviewRequest;
 
 
@@ -20,6 +21,7 @@ public interface UserService {
     void updateUser(UpdateUserRequest updateUserRequest, Long id);
 
     void addReview(UserReviewRequest UserReviewRequest);
+    void submitRequest(UserRequestSubmission userRequestSubmission);
 
     List<UserEntity> allUsers();
     GetUserRequest getUser(Long id);
