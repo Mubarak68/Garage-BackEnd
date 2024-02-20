@@ -1,10 +1,14 @@
 package com.GarageApp.GarageApp.service.user;
 
 
+import com.GarageApp.GarageApp.Entity.GarageEntity;
+import com.GarageApp.GarageApp.Entity.ReviewEntity;
 import com.GarageApp.GarageApp.Entity.UserEntity;
 import com.GarageApp.GarageApp.bo.CreateSignupRequest;
 import com.GarageApp.GarageApp.bo.user.GetUserRequest;
 import com.GarageApp.GarageApp.bo.user.UpdateUserRequest;
+import com.GarageApp.GarageApp.bo.user.UserReviewRequest;
+import com.GarageApp.GarageApp.repository.ReviewRepository;
 import com.GarageApp.GarageApp.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,12 +20,15 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-//    private final AccountRepository accountRepository;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    private final ReviewRepository reviewRepository;
+
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder,  ReviewRepository reviewRepository) {
         this.userRepository = userRepository;
 
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.reviewRepository = reviewRepository;
+
     }
 
     @Override
@@ -44,6 +51,15 @@ public class UserServiceImpl implements UserService {
 
         userEntity.setPassword(bCryptPasswordEncoder.encode(updateUserRequest.getPassword()));
         userRepository.save(userEntity);
+    }
+
+    @Override
+    public void addReview(UserReviewRequest userReviewRequest) {
+        ReviewEntity review = new ReviewEntity();
+        review.setText(userReviewRequest.getText());
+        review.setStarRate(userReviewRequest.getStarRate());
+        reviewRepository.save(review);
+;
     }
 
 
