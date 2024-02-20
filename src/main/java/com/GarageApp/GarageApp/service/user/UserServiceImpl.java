@@ -2,11 +2,13 @@ package com.GarageApp.GarageApp.service.user;
 
 
 import com.GarageApp.GarageApp.Entity.GarageEntity;
+import com.GarageApp.GarageApp.Entity.RequestEntity;
 import com.GarageApp.GarageApp.Entity.ReviewEntity;
 import com.GarageApp.GarageApp.Entity.UserEntity;
 import com.GarageApp.GarageApp.bo.CreateSignupRequest;
 import com.GarageApp.GarageApp.bo.user.GetUserRequest;
 import com.GarageApp.GarageApp.bo.user.UpdateUserRequest;
+import com.GarageApp.GarageApp.bo.user.UserRequestSubmission;
 import com.GarageApp.GarageApp.bo.user.UserReviewRequest;
 import com.GarageApp.GarageApp.repository.ReviewRepository;
 import com.GarageApp.GarageApp.repository.UserRepository;
@@ -60,6 +62,12 @@ public class UserServiceImpl implements UserService {
         review.setStarRate(userReviewRequest.getStarRate());
         reviewRepository.save(review);
 ;
+    }
+
+    @Override
+    public void submitRequest(UserRequestSubmission userRequestSubmission) {
+        RequestEntity request= new RequestEntity();
+        request.setRequestStatus(userRequestSubmission.getRequestStatus());
     }
 
 

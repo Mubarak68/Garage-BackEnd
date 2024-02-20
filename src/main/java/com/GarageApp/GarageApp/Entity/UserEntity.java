@@ -1,6 +1,9 @@
 package com.GarageApp.GarageApp.Entity;
 
 
+import com.GarageApp.GarageApp.util.enums.Roles;
+import com.GarageApp.GarageApp.util.enums.VehicleType;
+
 import javax.persistence.*;
 
 @Entity
@@ -25,6 +28,12 @@ public class UserEntity {
 
 
 
+
+    @Column(name = "vehicleYear",nullable = false)
+    private String vehicleYear;
+
+    @Enumerated(EnumType.STRING)
+    private VehicleType vehicleType;
 
     @OneToOne
     @JoinColumn(name = "role_id")
@@ -70,4 +79,23 @@ public class UserEntity {
     public void setRoles(RoleEntity roles) {
         this.roles = roles;
     }
+
+
+
+    public String getVehicleYear() {
+        return vehicleYear;
+    }
+
+    public void setVehicleYear(String vehicleYear) {
+        this.vehicleYear = vehicleYear;
+    }
+
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
 }

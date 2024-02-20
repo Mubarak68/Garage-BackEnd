@@ -4,6 +4,7 @@ import com.GarageApp.GarageApp.Entity.UserEntity;
 import com.GarageApp.GarageApp.bo.category.CreateCategoryRequest;
 import com.GarageApp.GarageApp.bo.user.GetUserRequest;
 import com.GarageApp.GarageApp.bo.user.UpdateUserRequest;
+import com.GarageApp.GarageApp.bo.user.UserRequestSubmission;
 import com.GarageApp.GarageApp.bo.user.UserReviewRequest;
 import com.GarageApp.GarageApp.service.user.UserService;
 import org.springframework.http.ResponseEntity;
@@ -44,4 +45,11 @@ public class UserController {
         userService.addReview(UserReviewRequest);
         return ResponseEntity.ok("User added a Review !!! ");
     }
+
+    @PostMapping("/request")
+    public ResponseEntity<String> submitRequest(@RequestBody UserRequestSubmission userRequestSubmission) {
+        userService.(userRequestSubmission);
+        return ResponseEntity.ok("User added a Review !!! ");
+    }
+
 }

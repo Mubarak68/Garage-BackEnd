@@ -49,6 +49,8 @@ public class AuthServiceImpl implements AuthService{
         userEntity.setEmail(createSignupRequest.getEmail());
 
         userEntity.setRoles(roleEntity);
+        userEntity.setVehicleYear(createSignupRequest.getVehicleYear());
+        userEntity.setVehicleType();
         userEntity.setPassword(bCryptPasswordEncoder.encode(createSignupRequest.getPassword()));
         userRepository.save(userEntity);
     }
