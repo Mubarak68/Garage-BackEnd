@@ -36,9 +36,5 @@ public class SuperAdminController {
         return ResponseEntity.ok(allGarages);
     }
 
-    @PostMapping("/add-category")
-    public ResponseEntity<String> addCategory(@RequestBody CreateCategoryRequest createCategoryRequest){
-        superAdminService.addCategory(createCategoryRequest);
-        return ResponseEntity.ok("Category has been added!!");
-    }
+
 }

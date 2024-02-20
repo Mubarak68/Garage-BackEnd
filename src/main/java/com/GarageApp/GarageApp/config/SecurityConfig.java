@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String SUPER_ADMIN_PATH = "/api/v1/super_admin/**";
 
-    private static final String CATEGORY_ADMIN_PATH = "/api/v1/super_admin/**";
+    private static final String CATEGORY_ADMIN_PATH = "/api/v1/categories/**";
     @Autowired
     private JWTUtil jwtUtil;
     @Autowired

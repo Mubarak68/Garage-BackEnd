@@ -10,5 +10,5 @@ public interface SuperAdminService {
     List<GarageEntity> getAllGarages();
     void addGarage(CreateGarageRequest createGarageRequest);
 
-    void addCategory(CreateCategoryRequest createCategoryRequest);
+
 }

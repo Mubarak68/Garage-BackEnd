@@ -1,6 +1,7 @@
 package com.GarageApp.GarageApp.service.category;
 
 import com.GarageApp.GarageApp.Entity.CategoryEntity;
+import com.GarageApp.GarageApp.bo.category.CreateCategoryRequest;
 import com.GarageApp.GarageApp.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryEntity> getAllCategories() {
         return categoryRepository.findAll();
+    }
+
+    @Override
+    public void addCategory(CreateCategoryRequest createCategoryRequest) {
+        CategoryEntity category = new CategoryEntity();
+        category.setCategoryName(createCategoryRequest.getCategoryName());
+        categoryRepository.save(category);
     }
 }

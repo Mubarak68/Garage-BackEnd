@@ -38,10 +38,5 @@ public class SuperAdminServiceImpl implements SuperAdminService{
 //
     }
 
-    @Override
-    public void addCategory(CreateCategoryRequest createCategoryRequest) {
-        CategoryEntity category = new CategoryEntity();
-        category.setCategoryName(createCategoryRequest.getCategoryName());
-        categoryRepository.save(category);
-    }
+
 }

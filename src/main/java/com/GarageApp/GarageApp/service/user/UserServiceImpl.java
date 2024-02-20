@@ -10,8 +10,11 @@ import com.GarageApp.GarageApp.bo.user.GetUserRequest;
 import com.GarageApp.GarageApp.bo.user.UpdateUserRequest;
 import com.GarageApp.GarageApp.bo.user.UserRequestSubmission;
 import com.GarageApp.GarageApp.bo.user.UserReviewRequest;
+import com.GarageApp.GarageApp.repository.GarageRepository;
 import com.GarageApp.GarageApp.repository.ReviewRepository;
 import com.GarageApp.GarageApp.repository.UserRepository;
+import com.GarageApp.GarageApp.service.auth.UserDetailUtil;
+import com.GarageApp.GarageApp.util.enums.Request;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +28,15 @@ public class UserServiceImpl implements UserService {
 
     private final ReviewRepository reviewRepository;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder,  ReviewRepository reviewRepository) {
+    private  final GarageRepository garageRepository;
+
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ReviewRepository reviewRepository, GarageRepository garageRepository) {
         this.userRepository = userRepository;
 
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.reviewRepository = reviewRepository;
 
+        this.garageRepository = garageRepository;
     }
 
     @Override
@@ -65,9 +71,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void submitRequest(UserRequestSubmission userRequestSubmission) {
+    public void submitRequest(Long garageId, UserRequestSubmission userRequestSubmission) {
+        UserEntity userEntity = userRepository.findById(UserDetailUtil.userDetails().getId())
+                .orElseThrow();
+        GarageEntity garageEntity= garageRepository.findById(garageId)
+                .orElseThrow();
         RequestEntity request= new RequestEntity();
-        request.setRequestStatus(userRequestSubmission.getRequestStatus());
+        request.setRequestStatus(Request.valueOf(userRequestSubmission.getRequestStatus()));
+        request.setVehicleModel(userEntity.getVehicleModel());
+        request.setVehicleType(userEntity.getVehicleType());
+        request.setVehicleYear(userEntity.getVehicleYear());
+        request.setGarageEntity(garageEntity);
+
     }
 
 
@@ -80,6 +95,11 @@ public class UserServiceImpl implements UserService {
         getUserRequest.setEmail(userEntity.getEmail());
         getUserRequest.setId(userEntity.getId());
         return getUserRequest;
+    }
+
+    @Override
+    public List<GarageEntity> getAllGarages() {
+        return garageRepository.findAll();
     }
 
 

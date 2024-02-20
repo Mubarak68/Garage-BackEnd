@@ -1,12 +1,11 @@
-package com.GarageApp.GarageApp.controller;
+package com.GarageApp.GarageApp.controller.category;
 
 import com.GarageApp.GarageApp.Entity.CategoryEntity;
 import com.GarageApp.GarageApp.Entity.GarageEntity;
+import com.GarageApp.GarageApp.bo.category.CreateCategoryRequest;
 import com.GarageApp.GarageApp.service.category.CategoryService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +21,11 @@ public class CategoryController {
     public ResponseEntity<List<CategoryEntity>> getAllCategories() {
         List<CategoryEntity> allCategories = categoryService.getAllCategories();
         return ResponseEntity.ok(allCategories);
+    }
+
+    @PostMapping("/add-category")
+    public ResponseEntity<String> addCategory(@RequestBody CreateCategoryRequest createCategoryRequest){
+        categoryService.addCategory(createCategoryRequest);
+        return ResponseEntity.ok("Category has been added!!");
     }
 }
