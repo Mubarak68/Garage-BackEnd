@@ -7,9 +7,17 @@ public class CreateGarageRequest {
     private String location;
     private Double rating;
 
+    private String category;
+
     private String specialIn;
 
+    public String getSpecialIn() {
+        return specialIn;
+    }
 
+    public void setSpecialIn(String specialIn) {
+        this.specialIn = specialIn;
+    }
 
     public String getGarageName() {
         return garageName;
@@ -35,12 +43,12 @@ public class CreateGarageRequest {
         this.rating = rating;
     }
 
-    public String getSpecialIn() {
-        return specialIn;
+    public String getCategory() {
+        return category;
     }
 
-    public void setSpecialIn(String specialIn) {
-        this.specialIn = specialIn;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
 

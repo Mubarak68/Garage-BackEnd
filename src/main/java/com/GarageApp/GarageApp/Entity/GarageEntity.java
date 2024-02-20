@@ -13,15 +13,11 @@ public class GarageEntity {
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long garageId;
 
-
     @Column(name = "garageName", nullable = false)
-
     private String garageName;
 
     @Column(name = "location", nullable = false)
     private String location;
-
-
 
     @Column(name = "rating", nullable = false)
     private Double rating;
@@ -33,11 +29,6 @@ private Long garageId;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
-
-
-
-
-
 
 
     public Long getGarageId() {
@@ -79,11 +70,6 @@ private Long garageId;
     public void setSpecialIn(String specialIn) {
         this.specialIn = specialIn;
     }
-
-
-
-
-
 
     public CategoryEntity getCategoryEntity() {
         return categoryEntity;

@@ -1,5 +1,7 @@
 package com.GarageApp.GarageApp.Entity;
 
+import com.GarageApp.GarageApp.util.enums.Category;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,7 +14,8 @@ public class CategoryEntity {
     private Long categoryId;
 
     @Column(name = "categoryName", nullable = false)
-    private String categoryName;
+    @Enumerated(EnumType.STRING)
+    private Category categoryName;
 
     public Long getCategoryId() {
         return categoryId;
@@ -22,12 +25,11 @@ public class CategoryEntity {
         this.categoryId = categoryId;
     }
 
-    public String getCategoryName() {
+    public Category getCategoryName() {
         return categoryName;
     }
 
-    public void setCategoryName(String categoryName) {
+    public void setCategoryName(Category categoryName) {
         this.categoryName = categoryName;
     }
-
 }
