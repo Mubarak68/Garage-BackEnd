@@ -4,7 +4,9 @@ import com.GarageApp.GarageApp.Entity.RequestEntity;
 import com.GarageApp.GarageApp.bo.user.UpdateStatusRequest;
 import com.GarageApp.GarageApp.repository.RequestRepository;
 import com.GarageApp.GarageApp.util.enums.Request;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AdminServiceImpl implements AdminService{
 
     private final RequestRepository requestRepository;
