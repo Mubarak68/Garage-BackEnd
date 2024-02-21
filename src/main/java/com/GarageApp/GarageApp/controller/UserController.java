@@ -2,11 +2,7 @@ package com.GarageApp.GarageApp.controller;
 
 import com.GarageApp.GarageApp.Entity.GarageEntity;
 import com.GarageApp.GarageApp.Entity.UserEntity;
-import com.GarageApp.GarageApp.bo.category.CreateCategoryRequest;
-import com.GarageApp.GarageApp.bo.user.GetUserRequest;
-import com.GarageApp.GarageApp.bo.user.UpdateUserRequest;
-import com.GarageApp.GarageApp.bo.user.UserRequestSubmission;
-import com.GarageApp.GarageApp.bo.user.UserReviewRequest;
+import com.GarageApp.GarageApp.bo.user.*;
 import com.GarageApp.GarageApp.service.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,15 +44,20 @@ public class UserController {
     }
 
     @PostMapping("/request")
-    public ResponseEntity<String> submitRequest(@RequestParam Long garageID,
-                                                @RequestBody UserRequestSubmission userRequestSubmission) {
-        userService.submitRequest(garageID,userRequestSubmission);
-        return ResponseEntity.ok("User added a Review !!! ");
+    public ResponseEntity<String> submitRequest(@RequestParam Long garageID) {
+        userService.submitRequest(garageID);
+        return ResponseEntity.ok("User added a Request !!! ");
     }
     @GetMapping("/garages")
     public ResponseEntity<List<GarageEntity>> getAllGarages() {
         List<GarageEntity> allGarages = userService.getAllGarages();
         return ResponseEntity.ok(allGarages);
+    }
+
+    @PatchMapping("/update-status")
+    public ResponseEntity<String> statusRequest(@RequestParam Long requestId, @RequestBody UpdateStatusRequest updateStatusRequest) {
+        userService.updateStatusRequest(requestId,updateStatusRequest);
+        return ResponseEntity.ok("User has updated status successfully!!! ");
     }
 
 }
