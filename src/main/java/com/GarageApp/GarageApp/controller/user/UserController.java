@@ -1,12 +1,8 @@
-package com.GarageApp.GarageApp.controller;
+package com.GarageApp.GarageApp.controller.user;
 
 import com.GarageApp.GarageApp.Entity.GarageEntity;
 import com.GarageApp.GarageApp.Entity.UserEntity;
-import com.GarageApp.GarageApp.bo.category.CreateCategoryRequest;
-import com.GarageApp.GarageApp.bo.user.GetUserRequest;
-import com.GarageApp.GarageApp.bo.user.UpdateUserRequest;
-import com.GarageApp.GarageApp.bo.user.UserRequestSubmission;
-import com.GarageApp.GarageApp.bo.user.UserReviewRequest;
+import com.GarageApp.GarageApp.bo.user.*;
 import com.GarageApp.GarageApp.service.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,16 +38,15 @@ public class UserController {
     }
 
     @PostMapping("/add-review")
-    public ResponseEntity<String> addReview(@RequestBody UserReviewRequest UserReviewRequest) {
-        userService.addReview(UserReviewRequest);
+    public ResponseEntity<String> addReview(@RequestParam Long garageId, @RequestBody UserReviewRequest UserReviewRequest) {
+        userService.addReview(garageId,UserReviewRequest);
         return ResponseEntity.ok("User added a Review !!! ");
     }
 
     @PostMapping("/request")
-    public ResponseEntity<String> submitRequest(@RequestParam Long garageID,
-                                                @RequestBody UserRequestSubmission userRequestSubmission) {
-        userService.submitRequest(garageID,userRequestSubmission);
-        return ResponseEntity.ok("User added a Review !!! ");
+    public ResponseEntity<String> submitRequest(@RequestParam Long garageId) {
+        userService.submitRequest(garageId);
+        return ResponseEntity.ok("User added a Request !!! ");
     }
     @GetMapping("/garages")
     public ResponseEntity<List<GarageEntity>> getAllGarages() {
@@ -59,4 +54,6 @@ public class UserController {
         return ResponseEntity.ok(allGarages);
     }
 
-}
+
+    }
+

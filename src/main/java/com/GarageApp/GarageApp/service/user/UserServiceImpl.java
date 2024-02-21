@@ -8,11 +8,11 @@ import com.GarageApp.GarageApp.Entity.UserEntity;
 import com.GarageApp.GarageApp.bo.CreateSignupRequest;
 import com.GarageApp.GarageApp.bo.user.GetUserRequest;
 import com.GarageApp.GarageApp.bo.user.UpdateUserRequest;
-import com.GarageApp.GarageApp.bo.user.UserRequestSubmission;
 import com.GarageApp.GarageApp.bo.user.UserReviewRequest;
 import com.GarageApp.GarageApp.repository.GarageRepository;
 import com.GarageApp.GarageApp.repository.ReviewRepository;
 import com.GarageApp.GarageApp.repository.UserRepository;
+import com.GarageApp.GarageApp.repository.RequestRepository;
 import com.GarageApp.GarageApp.service.auth.UserDetailUtil;
 import com.GarageApp.GarageApp.util.enums.Request;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,13 +30,16 @@ public class UserServiceImpl implements UserService {
 
     private  final GarageRepository garageRepository;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ReviewRepository reviewRepository, GarageRepository garageRepository) {
+    private final RequestRepository requestRepository;
+
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ReviewRepository reviewRepository, GarageRepository garageRepository, RequestRepository requestRepository) {
         this.userRepository = userRepository;
 
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.reviewRepository = reviewRepository;
 
         this.garageRepository = garageRepository;
+        this.requestRepository = requestRepository;
     }
 
     @Override
@@ -62,28 +65,37 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addReview(UserReviewRequest userReviewRequest) {
+    public void addReview(Long garageId,UserReviewRequest userReviewRequest) {
+        UserEntity userEntity = userRepository.findById(UserDetailUtil.userDetails().getId()).orElseThrow();
+
+        GarageEntity garageEntity=garageRepository.findById(garageId)
+                .orElseThrow();
+
         ReviewEntity review = new ReviewEntity();
         review.setText(userReviewRequest.getText());
         review.setStarRate(userReviewRequest.getStarRate());
+        review.setGarageEntity(garageEntity);
+        review.setUserEntity(userEntity);
         reviewRepository.save(review);
-;
     }
 
     @Override
-    public void submitRequest(Long garageId, UserRequestSubmission userRequestSubmission) {
+    public void submitRequest(Long garageId) {
         UserEntity userEntity = userRepository.findById(UserDetailUtil.userDetails().getId())
                 .orElseThrow();
         GarageEntity garageEntity= garageRepository.findById(garageId)
                 .orElseThrow();
         RequestEntity request= new RequestEntity();
-        request.setRequestStatus(Request.valueOf(userRequestSubmission.getRequestStatus()));
+        request.setRequestStatus(Request.WAITING);
         request.setVehicleModel(userEntity.getVehicleModel());
         request.setVehicleType(userEntity.getVehicleType());
         request.setVehicleYear(userEntity.getVehicleYear());
         request.setGarageEntity(garageEntity);
-
+        request.setUserEntity(userEntity);
+        requestRepository.save(request);
     }
+
+
 
 
     @Override

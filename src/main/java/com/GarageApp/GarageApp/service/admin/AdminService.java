@@ -1,10 +1,9 @@
 package com.GarageApp.GarageApp.service.admin;
 
-import com.GarageApp.GarageApp.Entity.UserEntity;
-
-import java.util.List;
+import com.GarageApp.GarageApp.bo.user.UpdateStatusRequest;
 
 public interface AdminService {
 
-    List<UserEntity> getAllUsers();
+    void updateStatusRequest(Long requestId, UpdateStatusRequest updateStatusRequest);
+
 }
