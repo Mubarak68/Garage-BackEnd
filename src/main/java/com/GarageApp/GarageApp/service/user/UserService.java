@@ -20,10 +20,9 @@ public interface UserService {
 
     void updateUser(UpdateUserRequest updateUserRequest, Long id);
 
-    void addReview(UserReviewRequest UserReviewRequest);
+    void addReview(Long garageId, UserReviewRequest UserReviewRequest);
     void submitRequest(Long garageId);
 
-    void updateStatusRequest(Long requestId, UpdateStatusRequest updateStatusRequest);
 
     List<UserEntity> allUsers();
     GetUserRequest getUser(Long id);

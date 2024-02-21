@@ -53,7 +53,6 @@ public class SuperAdminServiceImpl implements SuperAdminService{
         garage.setRoles(roleEntity);
         garageRepository.save(garage);
 
-//
     }
 
 

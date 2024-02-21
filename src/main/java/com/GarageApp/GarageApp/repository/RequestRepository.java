@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRequestRepository extends JpaRepository<RequestEntity, Long> {
+public interface RequestRepository extends JpaRepository<RequestEntity, Long> {
 
 }

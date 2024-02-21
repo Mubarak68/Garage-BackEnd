@@ -1,4 +1,4 @@
-package com.GarageApp.GarageApp.controller;
+package com.GarageApp.GarageApp.controller.user;
 
 import com.GarageApp.GarageApp.Entity.GarageEntity;
 import com.GarageApp.GarageApp.Entity.UserEntity;
@@ -38,14 +38,14 @@ public class UserController {
     }
 
     @PostMapping("/add-review")
-    public ResponseEntity<String> addReview(@RequestBody UserReviewRequest UserReviewRequest) {
-        userService.addReview(UserReviewRequest);
+    public ResponseEntity<String> addReview(@RequestParam Long garageId, @RequestBody UserReviewRequest UserReviewRequest) {
+        userService.addReview(garageId,UserReviewRequest);
         return ResponseEntity.ok("User added a Review !!! ");
     }
 
     @PostMapping("/request")
-    public ResponseEntity<String> submitRequest(@RequestParam Long garageID) {
-        userService.submitRequest(garageID);
+    public ResponseEntity<String> submitRequest(@RequestParam Long garageId) {
+        userService.submitRequest(garageId);
         return ResponseEntity.ok("User added a Request !!! ");
     }
     @GetMapping("/garages")
@@ -54,10 +54,6 @@ public class UserController {
         return ResponseEntity.ok(allGarages);
     }
 
-    @PatchMapping("/update-status")
-    public ResponseEntity<String> statusRequest(@RequestParam Long requestId, @RequestBody UpdateStatusRequest updateStatusRequest) {
-        userService.updateStatusRequest(requestId,updateStatusRequest);
-        return ResponseEntity.ok("User has updated status successfully!!! ");
+
     }
 
-}

@@ -1,4 +1,4 @@
-package com.GarageApp.GarageApp.controller;
+package com.GarageApp.GarageApp.controller.auth;
 
 import com.GarageApp.GarageApp.bo.AuthinticationResponse;
 import com.GarageApp.GarageApp.bo.CreateLoginRequest;

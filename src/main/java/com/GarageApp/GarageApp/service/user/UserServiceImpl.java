@@ -7,13 +7,12 @@ import com.GarageApp.GarageApp.Entity.ReviewEntity;
 import com.GarageApp.GarageApp.Entity.UserEntity;
 import com.GarageApp.GarageApp.bo.CreateSignupRequest;
 import com.GarageApp.GarageApp.bo.user.GetUserRequest;
-import com.GarageApp.GarageApp.bo.user.UpdateStatusRequest;
 import com.GarageApp.GarageApp.bo.user.UpdateUserRequest;
 import com.GarageApp.GarageApp.bo.user.UserReviewRequest;
 import com.GarageApp.GarageApp.repository.GarageRepository;
 import com.GarageApp.GarageApp.repository.ReviewRepository;
 import com.GarageApp.GarageApp.repository.UserRepository;
-import com.GarageApp.GarageApp.repository.UserRequestRepository;
+import com.GarageApp.GarageApp.repository.RequestRepository;
 import com.GarageApp.GarageApp.service.auth.UserDetailUtil;
 import com.GarageApp.GarageApp.util.enums.Request;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,16 +30,16 @@ public class UserServiceImpl implements UserService {
 
     private  final GarageRepository garageRepository;
 
-    private final UserRequestRepository userRequestRepository;
+    private final RequestRepository requestRepository;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ReviewRepository reviewRepository, GarageRepository garageRepository, UserRequestRepository userRequestRepository) {
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ReviewRepository reviewRepository, GarageRepository garageRepository, RequestRepository requestRepository) {
         this.userRepository = userRepository;
 
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.reviewRepository = reviewRepository;
 
         this.garageRepository = garageRepository;
-        this.userRequestRepository = userRequestRepository;
+        this.requestRepository = requestRepository;
     }
 
     @Override
@@ -66,12 +65,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addReview(UserReviewRequest userReviewRequest) {
+    public void addReview(Long garageId,UserReviewRequest userReviewRequest) {
+        UserEntity userEntity = userRepository.findById(UserDetailUtil.userDetails().getId()).orElseThrow();
+
+        GarageEntity garageEntity=garageRepository.findById(garageId)
+                .orElseThrow();
+
         ReviewEntity review = new ReviewEntity();
         review.setText(userReviewRequest.getText());
         review.setStarRate(userReviewRequest.getStarRate());
+        review.setGarageEntity(garageEntity);
+        review.setUserEntity(userEntity);
         reviewRepository.save(review);
-;
     }
 
     @Override
@@ -87,15 +92,10 @@ public class UserServiceImpl implements UserService {
         request.setVehicleYear(userEntity.getVehicleYear());
         request.setGarageEntity(garageEntity);
         request.setUserEntity(userEntity);
-        userRequestRepository.save(request);
+        requestRepository.save(request);
     }
 
-    @Override
-    public void updateStatusRequest(Long requestId, UpdateStatusRequest updateStatusRequest) {
-        RequestEntity request = userRequestRepository.findById(requestId).orElseThrow();
-        request.setRequestStatus(Request.valueOf(updateStatusRequest.getRequestStatus()));
-        userRequestRepository.save(request);
-    }
+
 
 
     @Override
