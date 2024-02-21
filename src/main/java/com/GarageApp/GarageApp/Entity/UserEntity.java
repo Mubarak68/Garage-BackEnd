@@ -26,25 +26,6 @@ public class UserEntity {
     @Column(name = "password",nullable = false)
     private String password;
 
-    @Column(name = "vehicleYear",nullable = false)
-    private String vehicleYear;
-
-
-    @Enumerated(EnumType.STRING)
-    private VehicleType vehicleType;
-
-    @Column(name = "vehicleModel",nullable = false)
-    private String vehicleModel;
-
-
-    public String getVehicleModel() {
-        return vehicleModel;
-    }
-
-    public void setVehicleModel(String vehicleModel) {
-        this.vehicleModel = vehicleModel;
-    }
-
     @OneToOne
     @JoinColumn(name = "role_id")
     private RoleEntity roles;
@@ -88,24 +69,6 @@ public class UserEntity {
 
     public void setRoles(RoleEntity roles) {
         this.roles = roles;
-    }
-
-
-
-    public String getVehicleYear() {
-        return vehicleYear;
-    }
-
-    public void setVehicleYear(String vehicleYear) {
-        this.vehicleYear = vehicleYear;
-    }
-
-    public VehicleType getVehicleType() {
-        return vehicleType;
-    }
-
-    public void setVehicleType(VehicleType vehicleType) {
-        this.vehicleType = vehicleType;
     }
 
 }

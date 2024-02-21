@@ -1,5 +1,6 @@
 package com.GarageApp.GarageApp.service.auth;
 
+import com.GarageApp.GarageApp.Entity.EndUserEntity;
 import com.GarageApp.GarageApp.Entity.RoleEntity;
 import com.GarageApp.GarageApp.Entity.UserEntity;
 import com.GarageApp.GarageApp.bo.AuthinticationResponse;
@@ -9,6 +10,7 @@ import com.GarageApp.GarageApp.bo.CreateSignupRequest;
 import com.GarageApp.GarageApp.bo.CustomUserDetails;
 import com.GarageApp.GarageApp.config.JWTUtil;
 import com.GarageApp.GarageApp.excption.UserNotFoundException;
+import com.GarageApp.GarageApp.repository.EndUserRepository;
 import com.GarageApp.GarageApp.repository.RoleRepository;
 import com.GarageApp.GarageApp.repository.UserRepository;
 import com.GarageApp.GarageApp.util.enums.Roles;
@@ -18,6 +20,8 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 public class AuthServiceImpl implements AuthService{
@@ -29,31 +33,38 @@ public class AuthServiceImpl implements AuthService{
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserRepository userRepository;
 
-    public AuthServiceImpl(AuthenticationManager authenticationManager, CustomUserDetailsService userDetailsService, JWTUtil jwtUtil, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository) {
+    private final EndUserRepository endUserRepository;
+
+    public AuthServiceImpl(AuthenticationManager authenticationManager, CustomUserDetailsService userDetailsService, JWTUtil jwtUtil, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder, UserRepository userRepository, EndUserRepository endUserRepository) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.jwtUtil = jwtUtil;
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userRepository = userRepository;
+        this.endUserRepository = endUserRepository;
     }
 
 
     @Override
+    @Transactional
     public void signup(CreateSignupRequest createSignupRequest) {
         RoleEntity roleEntity= roleRepository.findRoleEntityByTitle(Roles.user.name())
                 .orElseThrow();
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(createSignupRequest.getUsername());
-
         userEntity.setEmail(createSignupRequest.getEmail());
-
         userEntity.setRoles(roleEntity);
-        userEntity.setVehicleYear(createSignupRequest.getVehicleYear());
-        userEntity.setVehicleType(VehicleType.valueOf(createSignupRequest.getVehicleType()));
-        userEntity.setVehicleModel(createSignupRequest.getVehicleModel());
         userEntity.setPassword(bCryptPasswordEncoder.encode(createSignupRequest.getPassword()));
+
+        EndUserEntity endUserEntity = new EndUserEntity();
+        endUserEntity.setUserEntity(userEntity);
+        endUserEntity.setVehicleModel(createSignupRequest.getVehicleModel());
+        endUserEntity.setVehicleType(VehicleType.valueOf(createSignupRequest.getVehicleType()));
+        endUserEntity.setVehicleYear(createSignupRequest.getVehicleYear());
+
         userRepository.save(userEntity);
+        endUserRepository.save(endUserEntity);
     }
 
 

@@ -9,15 +9,11 @@ public class GarageEntity {
 
 
     @Id
-@Column(name = "garageId", nullable = false)
+@Column(name = "id", nullable = false)
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long garageId;
 
-    @Column(name = "user_name", nullable = false)
-    private String username;
 
-    @Column(name = "password", nullable = false)
-    private String password;
     @Column(name = "garageName", nullable = false)
     private String garageName;
 
@@ -35,32 +31,15 @@ private Long garageId;
     @JoinColumn(name = "category_id")
     private CategoryEntity categoryEntity;
 
-    @OneToOne
-    @JoinColumn(name = "role_id")
-    private RoleEntity roles;
+    @OneToOne(cascade = CascadeType.ALL)
+    private UserEntity userEntity;
 
-    public RoleEntity getRoles() {
-        return roles;
+    public UserEntity getUserEntity() {
+        return userEntity;
     }
 
-    public void setRoles(RoleEntity roles) {
-        this.roles = roles;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 
     public Long getGarageId() {
