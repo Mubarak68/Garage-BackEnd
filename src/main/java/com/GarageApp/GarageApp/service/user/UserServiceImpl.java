@@ -113,6 +113,15 @@ public class UserServiceImpl implements UserService {
         return garageRepository.findAll();
     }
 
+    @Override
+    public EndUserEntity getUserByUserId(Long userId) {
+        UserEntity userEntity=userRepository.findById(UserDetailUtil.userDetails().getId())
+                .orElseThrow();
+
+        EndUserEntity endUserEntity = endUserRepository.findByUserEntity(userEntity);
+
+        return endUserEntity;
+    }
 
 
     @Override

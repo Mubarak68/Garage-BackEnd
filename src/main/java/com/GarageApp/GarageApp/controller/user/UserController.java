@@ -1,5 +1,6 @@
 package com.GarageApp.GarageApp.controller.user;
 
+import com.GarageApp.GarageApp.Entity.EndUserEntity;
 import com.GarageApp.GarageApp.Entity.GarageEntity;
 import com.GarageApp.GarageApp.Entity.UserEntity;
 import com.GarageApp.GarageApp.bo.user.*;
@@ -54,6 +55,10 @@ public class UserController {
         return ResponseEntity.ok(allGarages);
     }
 
-
+@GetMapping("/getUser")
+    public ResponseEntity<EndUserEntity> getUserById(@RequestParam Long userId){
+        return ResponseEntity.ok(userService.getUserByUserId(userId));
     }
+
+}
 

@@ -1,6 +1,7 @@
 package com.GarageApp.GarageApp.service.user;
 
 
+import com.GarageApp.GarageApp.Entity.EndUserEntity;
 import com.GarageApp.GarageApp.Entity.GarageEntity;
 import com.GarageApp.GarageApp.Entity.UserEntity;
 import com.GarageApp.GarageApp.bo.CreateSignupRequest;
@@ -27,4 +28,6 @@ public interface UserService {
     List<UserEntity> allUsers();
     GetUserRequest getUser(Long id);
     List<GarageEntity> getAllGarages();
+
+    EndUserEntity getUserByUserId(Long userId);
 }
