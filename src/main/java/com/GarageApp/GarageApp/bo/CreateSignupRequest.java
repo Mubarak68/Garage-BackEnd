@@ -55,4 +55,5 @@ public class CreateSignupRequest {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
